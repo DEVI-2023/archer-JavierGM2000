@@ -35,7 +35,14 @@ namespace Archer
 
         private void Update()
         {
-  
+
+            Vector3 camPos = Quaternion.Euler(angle, 0,0) * (new Vector3(0,0,-1) * distance);
+            camPos = Quaternion.Euler(0, target.transform.eulerAngles.y, 0) * camPos;
+            camPos += target.transform.position;
+            transform.LookAt(target.transform.position+offset);
+            //camPos += offset;
+            transform.position = Vector3.Lerp(transform.position, camPos,travelTime) ;
+            
         }
 
     }
