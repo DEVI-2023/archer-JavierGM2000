@@ -19,6 +19,7 @@ namespace Archer
         // El rigidbody de la flecha es tipo Trigger, para que no colisione
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Golpeado " + other.name);
             // La flecha sólo produce daño y ruido en el primer impacto
             if (hit) {
                 return;
@@ -28,6 +29,13 @@ namespace Archer
             if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 return;
+            }
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                Debug.Log(other.name +" Es enemigo");
+                //other.gameObject.transform.parent.GetComponent<Enemy>().Hit();
+                other.gameObject.transform.GetComponent<Enemy>().Hit();
             }
 
             hit = true;
